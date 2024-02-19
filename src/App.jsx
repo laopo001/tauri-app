@@ -1,7 +1,14 @@
 import { useState } from "react";
 import reactLogo from "./assets/react.svg";
 import { invoke } from "@tauri-apps/api/core";
+import {
+  isPermissionGranted,
+  requestPermission,
+  sendNotification,
+} from '@tauri-apps/plugin-notification';
 import "./App.css";
+import { ask } from '@tauri-apps/plugin-dialog';
+
 
 function App() {
   const [greetMsg, setGreetMsg] = useState("");
@@ -27,6 +34,16 @@ function App() {
           <img src={reactLogo} className="logo react" alt="React logo" />
         </a>
       </div>
+      <div><a onClick={async () => {
+        // Create a Yes/No dialog
+        const answer = await ask('This action cannot be reverted. Are you sure?', {
+          title: 'Tauri',
+          type: 'warning',
+        });
+
+        console.log(answer);
+
+      }}>test</a></div>
 
       <p>Click on the Tauri, Vite, and React logos to learn more.</p>
 
