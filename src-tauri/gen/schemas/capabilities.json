@@ -1,1 +1,1 @@
-{}
+{"desktop-capability":{"identifier":"desktop-capability","description":"","context":"local","windows":["main"],"permissions":["dialog:allow-ask","notification:allow-is-permission-granted","notification:default"],"platforms":["linux","macOS","windows"]}}

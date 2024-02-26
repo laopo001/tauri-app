@@ -35,6 +35,22 @@ function App() {
         </a>
       </div>
       <div><a onClick={async () => {
+        // Do you have permission to send a notification?
+        let permissionGranted = await isPermissionGranted();
+
+        // If not we need to request it
+        if (!permissionGranted) {
+          const permission = await requestPermission();
+          permissionGranted = permission === 'granted';
+        }
+
+        // Once permission has been granted we can send the notification
+        if (permissionGranted) {
+          sendNotification({ title: 'Tauri', body: 'Tauri is awesome!' });
+        }
+
+      }}>Notification</a></div>
+      <div><a onClick={async () => {
         // Create a Yes/No dialog
         const answer = await ask('This action cannot be reverted. Are you sure?', {
           title: 'Tauri',
@@ -43,8 +59,7 @@ function App() {
 
         console.log(answer);
 
-      }}>test</a></div>
-
+      }}>ask</a></div>
       <p>Click on the Tauri, Vite, and React logos to learn more.</p>
 
       <form
